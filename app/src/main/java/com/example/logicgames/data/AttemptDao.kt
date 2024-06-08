@@ -12,4 +12,7 @@ interface AttemptDao {
 
     @Query("SELECT * FROM attempts ORDER BY time DESC")
     fun getAllAttempts(): Flow<List<Attempt>>
+
+    @Query("SELECT * from attempts WHERE id = :id")
+    fun getAttempt(id: Int): Flow<Attempt>
 }

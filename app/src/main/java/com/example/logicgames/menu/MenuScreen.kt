@@ -1,4 +1,4 @@
-package com.example.logicgames
+package com.example.logicgames.menu
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -10,7 +10,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -21,24 +20,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-
-interface Game {
-    val name: String
-    val imageResId: Int
-    var highestScore: Int
-}
-
-data class Mastermind(
-    override val name: String = "MasterMind",
-    override val imageResId: Int = R.drawable.mastermind_image,
-    override var highestScore: Int = 0
-) : Game
-
-data class FastMath(
-    override val name: String = "FastMath",
-    override val imageResId: Int = R.drawable.fastmath_image,
-    override var highestScore: Int = 0
-) : Game
 
 @Composable
 fun Menu(navController: NavController) {
@@ -59,7 +40,7 @@ fun Menu(navController: NavController) {
             modifier = Modifier.fillMaxSize()
         ) {
             items(games) { game ->
-                GameCard(game = game, onClick = { navController.navigate(game.name.toLowerCase()) })
+                GameCard(game = game, onClick = { navController.navigate(game.route + "_info") })
             }
         }
     }

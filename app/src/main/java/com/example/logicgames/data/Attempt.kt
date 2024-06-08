@@ -6,7 +6,7 @@ import java.util.Date
 
 @Entity(tableName = "attempts")
 data class Attempt(
-    @PrimaryKey(autoGenerate = true) val attempt_id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val time: Date,
     val game: String,
     val score: Int

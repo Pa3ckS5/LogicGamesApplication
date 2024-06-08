@@ -1,4 +1,4 @@
-package com.example.logicgames
+package com.example.logicgames.game.mastermind
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,8 +18,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
-fun MastermindGame(viewModel: MastermindViewModel = viewModel()) {
-    val state by viewModel.state.collectAsState()
+fun MastermindScreen(viewModel: MastermindViewModel = viewModel()) { //repeatColorsP: Boolean,
+    val uiState = viewModel.uiState
 
     Column(
         modifier = Modifier
@@ -33,14 +33,14 @@ fun MastermindGame(viewModel: MastermindViewModel = viewModel()) {
             modifier = Modifier
                 .padding(10.dp)
         ) {
-            state.attempts.reversed().forEachIndexed { index, attempt ->
+            uiState.attempts.reversed().forEachIndexed { index, attempt ->
                 Box(
                     modifier = Modifier
                         .padding(4.dp)
                         .fillMaxWidth()
                         .height(50.dp)
                 ) {
-                    Text(text = "${state.attempts.size - index}", fontSize = 24.sp, modifier = Modifier.padding(end = 16.dp).align(Alignment.CenterStart))
+                    Text(text = "${uiState.attempts.size - index}", fontSize = 24.sp, modifier = Modifier.padding(end = 16.dp).align(Alignment.CenterStart))
                     Row(modifier = Modifier.align(Alignment.Center)) {
                         attempt.forEach { color ->
                             Box(
@@ -52,7 +52,7 @@ fun MastermindGame(viewModel: MastermindViewModel = viewModel()) {
                         }
                     }
                     Row(modifier = Modifier.align(Alignment.CenterEnd)) {
-                        state.feedback[state.attempts.size - 1 - index].forEach { (color, _) ->
+                        uiState.feedback[uiState.attempts.size - 1 - index].forEach { (color, _) ->
                             Box(
                                 modifier = Modifier
                                     .size(20.dp)
@@ -65,15 +65,15 @@ fun MastermindGame(viewModel: MastermindViewModel = viewModel()) {
             }
         }
 
-        if (state.gameOver) {
+        if (uiState.gameOver) {
             Text(
-                text = if (state.gameWon) "Congratulations! You won!" else "Game Over! The correct combination was:",
+                text = if (uiState.gameWon) "Congratulations! You won!" else "Game Over! The correct combination was:",
                 fontSize = 24.sp,
                 modifier = Modifier.padding(16.dp)
             )
-            if (!state.gameWon) {
+            if (!uiState.gameWon) {
                 Row {
-                    state.secretCode.forEach { color ->
+                    uiState.secretCode.forEach { color ->
                         Box(
                             modifier = Modifier
                                 .size(40.dp)
@@ -85,7 +85,7 @@ fun MastermindGame(viewModel: MastermindViewModel = viewModel()) {
                 Spacer(modifier = Modifier.height(16.dp))
             }
             Text(
-                text = "Score: ${state.score}",
+                text = "Score: ${uiState.score}",
                 modifier = Modifier.padding(16.dp),
                 style = TextStyle(fontSize = 14.sp, fontStyle = FontStyle.Italic)
             )
@@ -97,7 +97,7 @@ fun MastermindGame(viewModel: MastermindViewModel = viewModel()) {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                state.currentGuess.forEachIndexed { index, color ->
+                uiState.currentGuess.forEachIndexed { index, color ->
                     Box(
                         modifier = Modifier
                             .size(50.dp)
