@@ -1,12 +1,18 @@
 package com.example.logicgames.app
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.compose.rememberNavController
-import com.example.logicgames.app.NavigationComponent
+import android.app.Application
+import com.example.logicgames.data.AppContainer
+import com.example.logicgames.data.AppDataContainer
 
-@Composable
-fun LogicGames() {
-    val navController = rememberNavController()
-    NavigationComponent(navController = navController)
+class LogicGamesApp : Application() {
+
+    /**
+     * AppContainer instance used by the rest of classes to obtain dependencies
+     */
+    lateinit var container: AppContainer
+
+    override fun onCreate() {
+        super.onCreate()
+        container = AppDataContainer(this)
+    }
 }
-

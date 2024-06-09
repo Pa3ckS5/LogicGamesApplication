@@ -15,11 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.logicgames.app.AppViewModelProvider
-import com.example.logicgames.game.mastermind.MastermindInfoViewModel
 
 @Composable
 fun FastMathInfoScreen(
-    viewModel: MastermindInfoViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    viewModel: FastMathViewModel = viewModel(factory = AppViewModelProvider.Factory),
     navController: NavController
 ) {
     val uiState = viewModel.uiState
