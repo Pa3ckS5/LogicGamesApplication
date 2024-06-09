@@ -22,3 +22,10 @@ data class FastMath(
     override val imageResId: Int = R.drawable.fastmath_image,
     override var highestScore: Int = 0
 ) : Game
+
+data class ExampleGame(
+    override val name: String = "ExampleGame",
+    override val route: String = "examplegame",
+    override val imageResId: Int = R.drawable.fastmath_image,
+    override var highestScore: Int = 0
+) : Game

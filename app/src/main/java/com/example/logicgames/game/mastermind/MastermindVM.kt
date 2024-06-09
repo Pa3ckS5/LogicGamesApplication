@@ -1,14 +1,26 @@
 package com.example.logicgames.game.mastermind
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.SavedStateHandle
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.logicgames.data.Attempt
+import com.example.logicgames.data.AttemptsRepository
+import kotlinx.coroutines.launch
+import java.util.Date
+import kotlin.random.Random
 
+data class MastermindInfoModel(
+    val isShowed: Boolean = true,
+    val repeatColors: Boolean = false
+)
 
 data class MastermindModel(
+    var info: MastermindInfoModel = MastermindInfoModel(),
+
     val colors: List<Color>,
     var secretCode: List<Color>,
     var currentGuess: List<Color>,
@@ -20,10 +32,15 @@ data class MastermindModel(
     val maxAttempts: Int = 8
 )
 
-class MastermindViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+class MastermindViewModel(
+    savedStateHandle: SavedStateHandle,
+    private val attemptsRepository: AttemptsRepository
+) : ViewModel() {
+    private val colors = listOf(Color.Yellow, Color.Red, Color.Green, Color.Gray, Color.Cyan, Color.Magenta)
+
     var uiState by mutableStateOf(
         MastermindModel(
-            colors = listOf(Color.Yellow, Color.Red, Color.Green, Color.Gray, Color.Cyan, Color.Magenta),
+            colors = colors,
             secretCode = List(4) { Color.Transparent },
             currentGuess = List(4) { Color.Transparent },
             attempts = mutableListOf(),
@@ -38,9 +55,22 @@ class MastermindViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
         resetGame()
     }
 
+    fun setColorRepetition(value: Boolean) {
+        uiState = uiState.copy(
+            info = uiState.info.copy(repeatColors = value),
+        )
+        resetGame()
+    }
+
+    fun setShowedInfo(value: Boolean) {
+        uiState = uiState.copy(
+            info = uiState.info.copy(isShowed = value)
+        )
+    }
+
     fun resetGame() {
         uiState = uiState.copy(
-            secretCode = List(4) { uiState.colors.random() },
+            secretCode = generateSecretCode(uiState.colors, uiState.info.repeatColors),
             currentGuess = List(4) { uiState.colors[0] },
             attempts = mutableListOf(),
             feedback = mutableListOf(),
@@ -96,8 +126,12 @@ class MastermindViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
             gameOver = true
         }
 
-        val score =
-            if (gameWon) uiState.maxAttempts - uiState.attempts.size + 1 else uiState.maxAttempts - uiState.attempts.size
+        var score = 0
+        if (gameWon) {
+            score = uiState.maxAttempts - uiState.attempts.size + 1
+            recordAttempt("Mastermind", score)
+        }
+
 
         uiState = uiState.copy(
             gameWon = gameWon,
@@ -105,5 +139,30 @@ class MastermindViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
             score = score
         )
 
+    }
+
+    private fun generateSecretCode(colors: List<Color>, repeatColors: Boolean): List<Color> {
+        val availableColors = colors.toMutableList()
+        val secretCode = mutableListOf<Color>()
+        for (i in 0 until 4) {
+            val colorIndex = Random.nextInt(availableColors.size)
+            secretCode.add(availableColors[colorIndex])
+            if (!repeatColors) {
+                availableColors.removeAt(colorIndex)
+            }
+        }
+        return secretCode
+    }
+
+    private fun recordAttempt(game: String, score: Int) {
+        viewModelScope.launch {
+            attemptsRepository.insertAttempt(
+                Attempt(
+                    time = Date(),
+                    game = game,
+                    score = score
+                )
+            )
+        }
     }
 }
