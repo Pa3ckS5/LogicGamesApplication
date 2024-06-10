@@ -1,5 +1,6 @@
 package com.example.logicgames.menu
 
+import android.content.res.Resources
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -38,7 +39,7 @@ class MenuViewModel(
     private fun initializeHighestScores() {
         uiState.gameList.forEachIndexed { index, game: Game ->
             viewModelScope.launch {
-                attemptsRepository.getMaxScoreStream(game.name).collect { maxScore ->
+                attemptsRepository.getMaxScoreStream(game.route).collect { maxScore ->
                     maxScore?.let { score ->
                         val updatedGame = game
                         updatedGame.highestScore = score

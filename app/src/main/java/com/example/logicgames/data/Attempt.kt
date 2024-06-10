@@ -10,6 +10,7 @@ data class Attempt(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val time: Date,
     val game: String,
+    val gameRoute: String,
     val score: Int
 )
 

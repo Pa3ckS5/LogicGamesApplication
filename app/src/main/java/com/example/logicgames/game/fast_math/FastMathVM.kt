@@ -12,6 +12,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.example.logicgames.data.Attempt
 import com.example.logicgames.data.AttemptsRepository
 import com.example.logicgames.game.Level
+import com.example.logicgames.menu.FastMathObject
 import java.util.Date
 
 data class FastMathInfoModel(
@@ -134,6 +135,7 @@ class FastMathViewModel(
                 Attempt(
                     time = Date(),
                     game = game,
+                    gameRoute = FastMathObject.route,
                     score = score
                 )
             )

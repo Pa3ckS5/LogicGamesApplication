@@ -1,5 +1,7 @@
 package com.example.logicgames.navigation
 
+import android.content.res.Resources
+import androidx.compose.ui.graphics.Color
 import com.example.logicgames.R
 
 interface NavigationDestination {
@@ -11,15 +13,18 @@ interface NavigationDestination {
     /**
      * String resource id to that contains title to be displayed for the screen.
      */
-    val name: String
+    val nameRes: Int
+    val backgroundColor: Color
 }
 
 object MenuObject : NavigationDestination {
-    override val name: String = "Game Menu"
+    override val nameRes: Int = R.string.menu_title
     override val route: String = "menu"
+    override val backgroundColor: Color = Color(0x0E5500FF) //8% purple
 }
 
 object ScorelistObject : NavigationDestination {
-    override val name: String = "Your Scorelist"
+    override val nameRes: Int = R.string.scorelist_title
     override val route: String = "scorelist"
+    override val backgroundColor: Color = Color(0x0E5500FF) //8% purple
 }

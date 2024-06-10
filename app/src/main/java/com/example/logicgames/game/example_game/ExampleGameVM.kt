@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.logicgames.data.Attempt
 import com.example.logicgames.data.AttemptsRepository
+import com.example.logicgames.menu.ExampleGameObject
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -37,6 +38,7 @@ class ExampleGameViewModel(
                 Attempt(
                     time = Date(),
                     game = game,
+                    gameRoute = ExampleGameObject.route,
                     score = score
                 )
             )

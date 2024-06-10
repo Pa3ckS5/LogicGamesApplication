@@ -15,7 +15,7 @@ import com.example.logicgames.R
 
 @Composable
 fun StartScreen(navController: NavController) {
-    Image(painter = painterResource(id = R.drawable.background1),
+    Image(painter = painterResource(id = R.drawable.background_start),
         contentDescription = "Logic Games",
         contentScale = ContentScale.Crop,
         modifier = Modifier

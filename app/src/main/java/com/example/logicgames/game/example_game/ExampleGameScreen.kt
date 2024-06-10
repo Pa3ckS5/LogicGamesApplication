@@ -17,12 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
+import com.example.logicgames.menu.FastMathObject
 import com.example.logicgames.menu.MastermindObject
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,13 +33,13 @@ fun ExampleGameScreen(viewModel: ExampleGameViewModel = viewModel(factory = AppV
     val uiState = viewModel.uiState
 
     Scaffold(
-        topBar = { LogicGamesTopBar(title = MastermindObject.name) },
+        topBar = { LogicGamesTopBar(title = stringResource(id = FastMathObject.nameRes)) },
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(Color(0x80606060)), //50% grey
+                .background(FastMathObject.backgroundColor),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

@@ -16,12 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.game.LevelSelection
+import com.example.logicgames.menu.FastMathObject
 import com.example.logicgames.menu.MastermindObject
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,13 +33,13 @@ fun FastMathInfoScreen(
     val uiState = viewModel.uiState
 
     Scaffold(
-        topBar = { LogicGamesTopBar(title = MastermindObject.name) }
+        topBar = { LogicGamesTopBar(title = stringResource(id = MastermindObject.nameRes)) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(Color(0x80005800)), //50% green
+                .background(FastMathObject.backgroundColor),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

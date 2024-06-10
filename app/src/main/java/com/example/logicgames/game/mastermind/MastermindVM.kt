@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.logicgames.data.Attempt
 import com.example.logicgames.data.AttemptsRepository
+import com.example.logicgames.menu.MastermindObject
 import kotlinx.coroutines.launch
 import java.util.Date
 import kotlin.random.Random
@@ -161,6 +162,7 @@ class MastermindViewModel(
                 Attempt(
                     time = Date(),
                     game = game,
+                    gameRoute = MastermindObject.route,
                     score = score
                 )
             )

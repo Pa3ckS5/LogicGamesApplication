@@ -21,5 +21,5 @@ interface AttemptsRepository {
      */
     suspend fun insertAttempt(attempt: Attempt)
 
-    fun getMaxScoreStream(game: String): Flow<Int?>
+    fun getMaxScoreStream(gameRoute: String): Flow<Int?>
 }

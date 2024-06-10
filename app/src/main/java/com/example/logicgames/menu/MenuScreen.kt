@@ -1,6 +1,7 @@
 package com.example.logicgames.menu
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
@@ -46,7 +48,7 @@ fun MenuScreen(
     val uiState = viewModel.uiState
 
     Scaffold(
-        topBar = {LogicGamesTopBar(title = MenuObject.name)},
+        topBar = {LogicGamesTopBar(title = stringResource(id = MenuObject.nameRes)) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("scorelist") }
@@ -59,7 +61,10 @@ fun MenuScreen(
         }
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .background(MenuObject.backgroundColor)
         ) {
             var size = uiState.gameList.size
             val overallScore = uiState.gameList.sumOf { it.highestScore }
@@ -102,7 +107,7 @@ fun GameCard(
         Box(modifier = Modifier.height(150.dp)) {
             Image(
                 painter = painterResource(id = game.imageResId),
-                contentDescription = game.name,
+                contentDescription = stringResource(id = game.nameRes),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
@@ -115,7 +120,7 @@ fun GameCard(
                 verticalArrangement = Arrangement.Bottom
             ) {
                 Text("Highest Score: ${game.highestScore}", style = TextStyle(fontSize = 12.sp, fontStyle = FontStyle.Italic), color = Color.White)
-                Text(game.name, style = MaterialTheme.typography.titleLarge, color = Color.White)
+                Text(stringResource(id = game.nameRes), style = MaterialTheme.typography.titleLarge, color = Color.White)
             }
         }
     }

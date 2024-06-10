@@ -13,18 +13,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
@@ -33,7 +30,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.menu.MastermindObject
-import com.example.logicgames.navigation.MenuObject
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,13 +42,13 @@ fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppVie
     } else {
 
         Scaffold(
-            topBar = { LogicGamesTopBar(title = MastermindObject.name) },
+            topBar = { LogicGamesTopBar(title = stringResource(id = MastermindObject.nameRes)) },
         ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
-                    .background(Color(0x800000A5)), //50% blue
+                    .background(MastermindObject.backgroundColor),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceBetween
             ) {

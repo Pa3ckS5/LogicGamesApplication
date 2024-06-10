@@ -17,6 +17,6 @@ interface AttemptDao {
     @Query("SELECT * from attempts WHERE id = :id")
     fun getAttempt(id: Int): Flow<Attempt>
 
-    @Query("SELECT MAX(score) from attempts WHERE game = :game")
-    fun getMaxScore(game: String): Flow<Int>
+    @Query("SELECT MAX(score) from attempts WHERE gameRoute = :gameRoute")
+    fun getMaxScore(gameRoute: String): Flow<Int>
 }

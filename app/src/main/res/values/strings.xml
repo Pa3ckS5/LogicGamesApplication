@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LogicGames</string>
+    <string name="examplegame_name">Example Game</string>
+    <string name="fastmath_title">Fast Math</string>
+    <string name="mastermind_title">Mastermind</string>
+    <string name="menu_title">Game Menu</string>
+    <string name="scorelist_title">Your Scorelist</string>
 </resources>
