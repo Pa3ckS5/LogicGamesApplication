@@ -9,4 +9,6 @@ class OfflineAttemptsRepository(private val attemptDao: AttemptDao) : AttemptsRe
 
     override suspend fun insertAttempt(attempt: Attempt) = attemptDao.insert(attempt)
 
+    override fun getMaxScoreStream(game: String): Flow<Int?> = attemptDao.getMaxScore(game)
+
 }

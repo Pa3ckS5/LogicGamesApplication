@@ -20,4 +20,6 @@ interface AttemptsRepository {
      * Insert item in the data source
      */
     suspend fun insertAttempt(attempt: Attempt)
+
+    fun getMaxScoreStream(game: String): Flow<Int?>
 }

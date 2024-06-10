@@ -66,6 +66,7 @@ class MastermindViewModel(
         uiState = uiState.copy(
             info = uiState.info.copy(isShowed = value)
         )
+        if(!value) resetGame()
     }
 
     fun resetGame() {

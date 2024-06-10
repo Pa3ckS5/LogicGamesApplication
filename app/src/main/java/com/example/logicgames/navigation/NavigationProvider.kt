@@ -8,7 +8,7 @@ import com.example.logicgames.app.StartScreen
 import com.example.logicgames.game.example_game.ExampleGameScreen
 import com.example.logicgames.game.fast_math.FastMathScreen
 import com.example.logicgames.game.mastermind.MastermindScreen
-import com.example.logicgames.menu.Menu
+import com.example.logicgames.menu.MenuScreen
 import com.example.logicgames.scorelist.ScorelistScreen
 
 @Composable
@@ -16,7 +16,7 @@ fun NavigationComponent(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "startScreen") {
 
         composable("startScreen") { StartScreen(navController = navController) }
-        composable("menu") { Menu(navController = navController) }
+        composable("menu") { MenuScreen(navController = navController) }
         composable ("scorelist") {ScorelistScreen()}
 
         composable("mastermind") { MastermindScreen() }

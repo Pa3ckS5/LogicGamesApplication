@@ -1,16 +1,24 @@
 package com.example.logicgames.scorelist
 
+import android.graphics.fonts.FontStyle
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +38,12 @@ import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.data.Attempt
 import com.example.logicgames.data.formatedDate
 import com.example.logicgames.data.formatedScore
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
+import com.example.logicgames.app.LogicGamesTopBar
+import com.example.logicgames.navigation.MenuObject
+import com.example.logicgames.navigation.ScorelistObject
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,89 +53,71 @@ fun ScorelistScreen(
     viewModel: ScorelistViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val homeUiState by viewModel.homeUiState.collectAsState()
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = { LogicGamesTopBar(title = ScorelistObject.name) },
     ) { innerPadding ->
-        HomeBody(
-            itemList = homeUiState.itemList,
-            modifier = modifier.fillMaxSize(),
-            contentPadding = innerPadding
-        )
-    }
-}
-
-@Composable
-private fun HomeBody(
-    itemList: List<Attempt>,
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier,
-    ) {
-        if (itemList.isEmpty()) {
-            Text(
-                text = "No attempts", //stringResource("R.string.no_item_description")
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(contentPadding),
-            )
-        } else {
-            InventoryList(
-                itemList = itemList,
-                contentPadding = contentPadding,
-                modifier = Modifier.padding(horizontal = 8.dp)//dimensionResource(id = R.dimen.padding_small)
-            )
-        }
-    }
-}
-
-@Composable
-private fun InventoryList(
-    itemList: List<Attempt>,
-    contentPadding: PaddingValues,
-    modifier: Modifier = Modifier
-) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = contentPadding
-    ) {
-        items(items = itemList, key = { it.id }) { item ->
-            InventoryItem(attempt = item,
-                modifier = Modifier
-                    .padding(8.dp)
-            )
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            if (homeUiState.itemList.isEmpty()) {
+                item {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "No attempts yet.\nLets play!",
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
+                }
+            } else {
+                var i: Int = 0
+                items(items = homeUiState.itemList, key = { it.id }) { item ->
+                    val color = if(i % 2 == 0) Color(0x8066009A) else Color(0x80360077) //colors switch
+                    InventoryItem(attempt = item, modifier = Modifier.padding(8.dp), color)
+                    i++
+                }
+            }
         }
     }
 }
 
 @Composable
 private fun InventoryItem(
-    attempt: Attempt, modifier: Modifier = Modifier
+    attempt: Attempt, modifier: Modifier = Modifier, color: Color
 ) {
-    Card(
-        modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(color=color, shape = RoundedCornerShape(8.dp))
+
+
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             Column(
                 modifier = Modifier
                     .padding(4.dp)
+                    .weight(1f)
                     .align(Alignment.CenterVertically)
             ) {
                 AttemptAtribute(name = "Game", value = attempt.game)
             }
+            Spacer(Modifier.width(4.dp))
             Column(
                 modifier = Modifier
                     .padding(4.dp)
+                    .weight(1f)
                     .align(Alignment.CenterVertically)
             ) {
                 AttemptAtribute(name = "Date", value = attempt.formatedDate())
-                Spacer(Modifier.weight(1f))
                 AttemptAtribute(name = "Score", value = attempt.formatedScore())
             }
         }
@@ -139,9 +135,8 @@ private fun AttemptAtribute(
     ) {
         Text(
             text = name,
-            style = MaterialTheme.typography.bodySmall
+            style = TextStyle(fontSize = 12.sp, fontStyle = androidx.compose.ui.text.font.FontStyle.Italic)
         )
-        Spacer(Modifier.weight(1f))
         Text(
             text = value,
             style = MaterialTheme.typography.titleMedium

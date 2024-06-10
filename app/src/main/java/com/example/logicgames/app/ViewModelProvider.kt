@@ -37,7 +37,8 @@ object AppViewModelProvider {
 
         initializer {
             FastMathViewModel(
-                this.createSavedStateHandle()
+                this.createSavedStateHandle(),
+                logicGamesApplication().container.itemsRepository
             )
         }
 
