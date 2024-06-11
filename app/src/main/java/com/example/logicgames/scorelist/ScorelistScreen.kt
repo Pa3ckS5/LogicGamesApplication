@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,12 +33,12 @@ import com.example.logicgames.data.formatedScore
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.sp
+import com.example.logicgames.R
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.navigation.ScorelistObject
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScorelistScreen(
     modifier: Modifier = Modifier,
@@ -46,32 +47,37 @@ fun ScorelistScreen(
     val homeUiState by viewModel.homeUiState.collectAsState()
 
     Scaffold(
-        topBar = { LogicGamesTopBar(title = stringResource(id = ScorelistObject.nameRes)) },
+        topBar = { LogicGamesTopBar(title = stringResource(id = ScorelistObject.nameRes), ScorelistObject.mainColor) },
     ) { innerPadding ->
+        if (homeUiState.itemList.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .background(ScorelistObject.backgroundColor),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = stringResource(R.string.no_attempts_yet_lets_play),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+            }
+        } else {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(ScorelistObject.backgroundColor)
         ) {
-            if (homeUiState.itemList.isEmpty()) {
                 item {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "No attempts yet.\nLets play!",
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                    }
+                    OverallAttemptsText(numberOfAttempts = homeUiState.itemList.size)
                 }
-            } else {
+
                 var i: Int = 0
                 items(items = homeUiState.itemList, key = { it.id }) { item ->
                     val color = if(i % 2 == 0) Color(0x8066009A) else Color(0x80360077) //colors switch
-                    InventoryItem(attempt = item, modifier = Modifier.padding(8.dp), color)
+                    AttemptView(attempt = item, modifier = Modifier.padding(8.dp), color)
                     i++
                 }
             }
@@ -80,7 +86,16 @@ fun ScorelistScreen(
 }
 
 @Composable
-private fun InventoryItem(
+fun OverallAttemptsText(numberOfAttempts: Int) {
+    Text(
+        text = stringResource(R.string.overall_attempts_display) + numberOfAttempts,
+        modifier = Modifier.padding(16.dp),
+        style = TextStyle(fontSize = 14.sp, fontStyle = FontStyle.Italic)
+    )
+}
+
+@Composable
+private fun AttemptView(
     attempt: Attempt, modifier: Modifier = Modifier, color: Color
 ) {
     Box(
@@ -100,7 +115,7 @@ private fun InventoryItem(
                     .weight(1f)
                     .align(Alignment.CenterVertically)
             ) {
-                AttemptAtribute(name = "Game", value = attempt.game)
+                AttemptAtributeView(name = "Game", value = attempt.game)
             }
             Spacer(Modifier.width(4.dp))
             Column(
@@ -109,15 +124,15 @@ private fun InventoryItem(
                     .weight(1f)
                     .align(Alignment.CenterVertically)
             ) {
-                AttemptAtribute(name = "Date", value = attempt.formatedDate())
-                AttemptAtribute(name = "Score", value = attempt.formatedScore())
+                AttemptAtributeView(name = "Date", value = attempt.formatedDate())
+                AttemptAtributeView(name = "Score", value = attempt.formatedScore())
             }
         }
     }
 }
 
 @Composable
-private fun AttemptAtribute(
+private fun AttemptAtributeView(
     name: String,
     value: String
 ) {
@@ -131,7 +146,7 @@ private fun AttemptAtribute(
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleSmall
         )
     }
 }

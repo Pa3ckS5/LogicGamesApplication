@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -26,17 +27,16 @@ fun LogicGamesScreen() {
     NavigationComponent(navController = navController)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LogicGamesTopBar(
     title: String,
-    modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    backgroundColor: Color,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(color = Color(0x40606060))
+            .background(color = backgroundColor)
             .padding(14.dp)
 
     ) {
@@ -49,7 +49,8 @@ fun LogicGamesTopBar(
         ) {
             Text(
                 text = title,
-                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.White
             )
         }
     }

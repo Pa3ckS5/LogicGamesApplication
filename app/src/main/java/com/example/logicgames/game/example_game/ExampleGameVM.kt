@@ -30,6 +30,7 @@ class ExampleGameViewModel(
 
     fun onSubmit() {
         recordAttempt("Example Game", uiState.score)
+        setScore(0)
     }
 
     private fun recordAttempt(game: String, score: Int) {

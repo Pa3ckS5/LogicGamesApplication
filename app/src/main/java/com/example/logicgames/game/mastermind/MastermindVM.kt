@@ -132,6 +132,8 @@ class MastermindViewModel(
         if (gameWon) {
             score = uiState.maxAttempts - uiState.attempts.size + 1
             recordAttempt("Mastermind", score)
+        } else {
+            score = uiState.maxAttempts - uiState.attempts.size
         }
 
 

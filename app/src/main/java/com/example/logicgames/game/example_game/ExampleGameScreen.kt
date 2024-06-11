@@ -24,16 +24,16 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
+import com.example.logicgames.menu.ExampleGameObject
 import com.example.logicgames.menu.FastMathObject
 import com.example.logicgames.menu.MastermindObject
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExampleGameScreen(viewModel: ExampleGameViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val uiState = viewModel.uiState
 
     Scaffold(
-        topBar = { LogicGamesTopBar(title = stringResource(id = FastMathObject.nameRes)) },
+        topBar = { LogicGamesTopBar(title = stringResource(id = FastMathObject.nameRes), ExampleGameObject.mainColor) },
     ) { innerPadding ->
         Column(
             modifier = Modifier

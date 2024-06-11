@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,8 +24,9 @@ import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.menu.FastMathObject
 import com.example.logicgames.menu.MastermindObject
+import com.example.logicgames.R
+import com.example.logicgames.menu.ExampleGameObject
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FastMathScreen(viewModel: FastMathViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val uiState = viewModel.uiState
@@ -34,7 +36,7 @@ fun FastMathScreen(viewModel: FastMathViewModel = viewModel(factory = AppViewMod
     } else {
 
         Scaffold(
-            topBar = { LogicGamesTopBar(title = stringResource(id = MastermindObject.nameRes)) }
+            topBar = { LogicGamesTopBar(title = stringResource(id = FastMathObject.nameRes), FastMathObject.mainColor) }
         ) { innerPadding ->
             Column(
                 modifier = Modifier
@@ -45,12 +47,22 @@ fun FastMathScreen(viewModel: FastMathViewModel = viewModel(factory = AppViewMod
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Level ${uiState.info.selectedLevel}",
+                    text = stringResource(
+                        R.string.level_display,
+                        uiState.info.levels[uiState.info.selectedLevel - 1].number,
+                        uiState.info.levels[uiState.info.selectedLevel - 1].description),
+                    modifier = Modifier.padding(16.dp),
                     style = TextStyle(fontSize = 14.sp, fontStyle = FontStyle.Italic),
                 )
                 Text(
-                    text = "What is ${uiState.problem.number1} ${uiState.problem.operation} ${uiState.problem.number2}?",
-                    fontSize = 24.sp
+                    text = stringResource(R.string.solve_problem_display),
+                    modifier = Modifier.padding(4.dp),
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = "${uiState.problem.number1} ${uiState.problem.operation} ${uiState.problem.number2} =",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 TextField(
@@ -61,25 +73,37 @@ fun FastMathScreen(viewModel: FastMathViewModel = viewModel(factory = AppViewMod
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Time left: ${uiState.timer} seconds", fontSize = 16.sp)
+
+                Text(
+                    text = stringResource(R.string.time_left_display, uiState.timer),
+                    color = if (uiState.timer <= 3) Color.Red else Color.Unspecified,
+                    fontSize = 16.sp
+                )
+
                 Spacer(modifier = Modifier.height(16.dp))
+
                 Button(
                     onClick = { viewModel.onSubmit() },
                     enabled = !uiState.timeUp
                 ) {
-                    Text("Submit")
+                    Text(stringResource(R.string.submit))
                 }
-                Spacer(modifier = Modifier.height(16.dp))
+
                 Text(
-                    "Score: ${uiState.score}", fontSize = 20.sp,
-                    style = TextStyle(fontSize = 14.sp, fontStyle = FontStyle.Italic)
+                    uiState.message,
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.titleMedium
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(uiState.message, fontSize = 20.sp)
+                Text(
+                    text = stringResource(R.string.score_display, uiState.score),
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodySmall
+                )
+
                 Spacer(modifier = Modifier.height(16.dp))
                 if (uiState.timeUp) {
                     Button(onClick = { viewModel.onNextProblem() }) {
-                        Text("Next Problem")
+                        Text(stringResource(R.string.next_problem))
                     }
                 }
             }

@@ -25,7 +25,6 @@ class MenuViewModel(
                 FastMathObject,
                 ExampleGameObject,
                 ExampleGameObject,
-                ExampleGameObject,
                 ExampleGameObject
             )
         )

@@ -20,21 +20,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.logicgames.R
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.menu.MastermindObject
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppViewModelProvider.Factory)) { //repeatColorsP: Boolean,
+fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val uiState = viewModel.uiState
 
     if (uiState.info.isShowed) {
@@ -42,7 +41,7 @@ fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppVie
     } else {
 
         Scaffold(
-            topBar = { LogicGamesTopBar(title = stringResource(id = MastermindObject.nameRes)) },
+            topBar = { LogicGamesTopBar(title = stringResource(id = MastermindObject.nameRes), MastermindObject.mainColor) },
         ) { innerPadding ->
             Column(
                 modifier = Modifier
@@ -58,7 +57,9 @@ fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppVie
                         .padding(10.dp)
                 ) {
                     Text(
-                        text = "Colors " + if(uiState.info.repeatColors) {"can" } else {"can not"} + " repeat",
+                        text = stringResource(R.string.color_repetition) +": "+ if(uiState.info.repeatColors) stringResource(
+                            R.string.yes
+                        )  else stringResource(R.string.no),
                         style = TextStyle(fontSize = 14.sp, fontStyle = FontStyle.Italic),
                     )
 
@@ -102,7 +103,9 @@ fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppVie
 
                 if (uiState.gameOver) {
                     Text(
-                        text = if (uiState.gameWon) "Congratulations! You won!" else "Game Over! The correct combination was:",
+                        text = if (uiState.gameWon) stringResource(R.string.won_congratulation)
+                            else stringResource( R.string.game_over) + " " +
+                                stringResource(R.string.correct_combination_display),
                         fontSize = 24.sp,
                         modifier = Modifier.padding(16.dp)
                     )
@@ -120,12 +123,12 @@ fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppVie
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                     Text(
-                        text = "Score: ${uiState.score}",
+                        text = stringResource(R.string.score_display, uiState.score),
                         modifier = Modifier.padding(16.dp),
                         style = TextStyle(fontSize = 14.sp, fontStyle = FontStyle.Italic)
                     )
                     Button(onClick = { viewModel.resetGame() }) {
-                        Text("Play Again")
+                        Text(stringResource(R.string.play_again))
                     }
                 } else {
                     Row(
@@ -148,7 +151,7 @@ fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppVie
                         onClick = {
                             viewModel.checkGuess()
                         }) {
-                        Text("Submit Guess")
+                        Text(stringResource(R.string.submit_guess))
                     }
                 }
             }

@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.logicgames.R
@@ -16,7 +17,7 @@ import com.example.logicgames.R
 @Composable
 fun StartScreen(navController: NavController) {
     Image(painter = painterResource(id = R.drawable.background_start),
-        contentDescription = "Logic Games",
+        contentDescription = stringResource(id = R.string.app_name),
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .fillMaxSize()
@@ -35,7 +36,7 @@ fun StartScreen(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(12.dp))
         Button(onClick = { navController.navigate("menu") }) {
-            Text("Start")
+            Text(stringResource(R.string.start))
         }
     }
 }

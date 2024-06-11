@@ -5,4 +5,45 @@
     <string name="mastermind_title">Mastermind</string>
     <string name="menu_title">Game Menu</string>
     <string name="scorelist_title">Your Scorelist</string>
+    <string name="score_display">Score: %1d</string>
+    <string name="play_again">Play Again</string>
+    <string name="submit_guess">Submit Guess</string>
+    <string name="won_congratulation">Congratulations! You won!</string>
+    <string name="game_over">Game Over!</string>
+    <string name="correct_combination_display">The correct combination was:</string>
+    <string name="color_repetition">"Color repetition"</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="game_info">Game info</string>
+    <string name="game_options">Game options</string>
+    <string name="level_display">Level %1d (%2s)</string>
+    <string name="start_game">Start Game</string>
+    <string name="solve_problem_display">Solve problem:</string>
+    <string name="time_left_display">Time left: %1d seconds</string>
+    <string name="submit">Submit</string>
+    <string name="next_problem">Next Problem</string>
+    <string name="overall_score_display">Overall score in %1d games: %2d</string>
+    <string name="highest_score_display">"Highest Score: "</string>
+    <string name="no_attempts_yet_lets_play">No attempts yet.\nLets play!</string>
+    <string name="overall_attempts_display">"Overall number of attempts: "</string>
+    <string name="start">Start</string>
+    <string name="mastermind_info">Enter the world of deduction and strategy with Mastermind! Your
+        objective is to crack the hidden color code within 8 attempts. Select your guess by
+        choosing colors for each slot, then submit to see how close you are. Black pegs indicate
+        correct colors in the correct position, while white pegs signify correct colors in the
+        wrong position. Use the feedback to refine your strategy and crack the code. A vertical
+        screen position is recommended.</string>
+    <string name="examplegame_info">This is just an Example game. The task of the game is to test
+        the correctness of inserting trials into the database.</string>
+    <string name="fastmath_info">Fast Math is an engaging educational app that challenges you to
+        solve math problems quickly. Choose from easy, medium, or hard levels and race against the
+        clock to answer correctly. Earn points for each correct answer and aim to beat your high
+        score. Perfect for sharpening arithmetic skills and enjoying a fun mental workout. A
+        vertical screen position is recommended.</string>
+
+    <string name="channel_name">Welcome Channel</string>
+    <string name="channel_description">Channel for welcome notifications</string>
+    <string name="notification_title">Welcome!</string>
+    <string name="notification_text">You can visit our page www.logic_games.com!</string>
+
 </resources>

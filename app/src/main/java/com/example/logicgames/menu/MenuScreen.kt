@@ -35,11 +35,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.logicgames.R
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.navigation.MenuObject
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuScreen(
     navController: NavController,
@@ -48,7 +48,7 @@ fun MenuScreen(
     val uiState = viewModel.uiState
 
     Scaffold(
-        topBar = {LogicGamesTopBar(title = stringResource(id = MenuObject.nameRes)) },
+        topBar = {LogicGamesTopBar(title = stringResource(id = MenuObject.nameRes), MenuObject.mainColor) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("scorelist") }
@@ -86,7 +86,7 @@ fun MenuScreen(
 @Composable
 fun OverallScoreText(numberOfGames: Int, overallScore: Int) {
     Text(
-        text = "Overall score in $numberOfGames games: $overallScore",
+        text = stringResource(R.string.overall_score_display, numberOfGames, overallScore),
         modifier = Modifier.padding(16.dp),
         style = TextStyle(fontSize = 14.sp, fontStyle = FontStyle.Italic)
     )
@@ -119,7 +119,7 @@ fun GameCard(
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Bottom
             ) {
-                Text("Highest Score: ${game.highestScore}", style = TextStyle(fontSize = 12.sp, fontStyle = FontStyle.Italic), color = Color.White)
+                Text(stringResource(R.string.highest_score_display) + game.highestScore, style = TextStyle(fontSize = 12.sp, fontStyle = FontStyle.Italic), color = Color.White)
                 Text(stringResource(id = game.nameRes), style = MaterialTheme.typography.titleLarge, color = Color.White)
             }
         }
