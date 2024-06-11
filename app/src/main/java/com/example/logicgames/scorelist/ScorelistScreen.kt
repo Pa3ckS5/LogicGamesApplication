@@ -163,7 +163,7 @@ private fun AttemptAtributeView(
     ) {
         Text(
             text = name,
-            style = TextStyle(fontSize = 12.sp, fontStyle = androidx.compose.ui.text.font.FontStyle.Italic)
+            style = MaterialTheme.typography.bodySmall
         )
         Text(
             text = value,

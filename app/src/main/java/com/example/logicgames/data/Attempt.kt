@@ -29,7 +29,7 @@ data class Attempt(
  * @return A formatted date string.
  */
 fun Attempt.formatedDate(): String {
-    val dateFormat = SimpleDateFormat("DD.MM.YYYY HH:MM")
+    val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm")
     return dateFormat.format(time)
 }
 

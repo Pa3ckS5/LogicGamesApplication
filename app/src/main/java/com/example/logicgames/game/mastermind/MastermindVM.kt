@@ -171,7 +171,7 @@ class MastermindViewModel(
         }
 
         var gameOver = false
-        if (uiState.attempts.size >= uiState.maxAttempts && !gameWon) {
+        if (uiState.attempts.size >= uiState.maxAttempts || gameWon) {
             gameOver = true
         }
 

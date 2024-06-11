@@ -45,5 +45,7 @@
     <string name="channel_description">Channel for welcome notifications</string>
     <string name="notification_title">Welcome!</string>
     <string name="notification_text">You can visit our page www.logic_games.com!</string>
+    <string name="farewell_notification_title">Goodbye!</string>
+    <string name="farewell_notification_text">See you later!</string>
 
 </resources>
