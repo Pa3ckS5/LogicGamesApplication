@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,10 +22,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.menu.FastMathObject
-import com.example.logicgames.menu.MastermindObject
 import com.example.logicgames.R
-import com.example.logicgames.menu.ExampleGameObject
 
+/**
+ * Composable function for displaying the Fast Math game screen.
+ * @param viewModel The ViewModel for managing the Fast Math game.
+ */
 @Composable
 fun FastMathScreen(viewModel: FastMathViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val uiState = viewModel.uiState

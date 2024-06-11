@@ -11,6 +11,11 @@ import com.example.logicgames.game.mastermind.MastermindScreen
 import com.example.logicgames.menu.MenuScreen
 import com.example.logicgames.scorelist.ScorelistScreen
 
+/**
+ * Composable function for setting up navigation in the app.
+ *
+ * @param navController The NavController instance to handle navigation.
+ */
 @Composable
 fun NavigationComponent(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "startScreen") {

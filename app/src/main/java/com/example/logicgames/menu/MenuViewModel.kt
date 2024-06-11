@@ -1,6 +1,5 @@
 package com.example.logicgames.menu
 
-import android.content.res.Resources
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,13 +10,26 @@ import com.example.logicgames.data.AttemptsRepository
 import kotlinx.coroutines.launch
 
 
+/**
+ * Data class representing the model for the menu screen.
+ * @param gameList The list of games to display.
+ */
 data class MenuModel(
     val gameList: List<Game> = listOf()
 )
+
+/**
+ * ViewModel class for the menu screen.
+ * @param savedStateHandle The saved state handle.
+ * @param attemptsRepository The repository for attempts.
+ */
 class MenuViewModel(
     savedStateHandle: SavedStateHandle,
     private val attemptsRepository: AttemptsRepository
 ) : ViewModel() {
+    /**
+     * Mutable state representing the UI state of the menu screen.
+     */
     var uiState by mutableStateOf(
         MenuModel(
             gameList = listOf(
@@ -35,6 +47,9 @@ class MenuViewModel(
         initializeHighestScores()
     }
 
+    /**
+     * Initializes the highest scores for each game.
+     */
     private fun initializeHighestScores() {
         uiState.gameList.forEachIndexed { index, game: Game ->
             viewModelScope.launch {
@@ -51,3 +66,4 @@ class MenuViewModel(
         }
     }
 }
+

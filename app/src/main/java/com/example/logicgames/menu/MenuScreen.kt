@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -40,6 +39,11 @@ import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.navigation.MenuObject
 
+/**
+ * Composable function representing the menu screen.
+ * @param navController The navigation controller.
+ * @param viewModel The view model for the menu screen.
+ */
 @Composable
 fun MenuScreen(
     navController: NavController,
@@ -48,7 +52,7 @@ fun MenuScreen(
     val uiState = viewModel.uiState
 
     Scaffold(
-        topBar = {LogicGamesTopBar(title = stringResource(id = MenuObject.nameRes), MenuObject.mainColor) },
+        topBar = { LogicGamesTopBar(title = stringResource(id = MenuObject.nameRes), MenuObject.mainColor) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("scorelist") }
@@ -83,6 +87,11 @@ fun MenuScreen(
     }
 }
 
+/**
+ * Composable function representing the overall score text.
+ * @param numberOfGames Number of games.
+ * @param overallScore Overall score.
+ */
 @Composable
 fun OverallScoreText(numberOfGames: Int, overallScore: Int) {
     Text(
@@ -92,6 +101,11 @@ fun OverallScoreText(numberOfGames: Int, overallScore: Int) {
     )
 }
 
+/**
+ * Composable function representing a game card.
+ * @param game The game to display.
+ * @param onClick Callback function when the card is clicked.
+ */
 @Composable
 fun GameCard(
     game: Game,

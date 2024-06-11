@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +30,10 @@ import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.menu.MastermindObject
 
-
+/**
+ * Composable function for displaying the Mastermind game screen.
+ * @param viewModel The ViewModel for managing the Mastermind game.
+ */
 @Composable
 fun MastermindScreen(viewModel: MastermindViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val uiState = viewModel.uiState

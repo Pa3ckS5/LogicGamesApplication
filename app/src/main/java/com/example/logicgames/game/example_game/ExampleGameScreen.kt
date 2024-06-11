@@ -28,39 +28,53 @@ import com.example.logicgames.menu.ExampleGameObject
 import com.example.logicgames.menu.FastMathObject
 import com.example.logicgames.menu.MastermindObject
 
+/**
+ * Composable function for displaying the example game screen.
+ * @param viewModel The ViewModel for managing the example game.
+ */
 @Composable
 fun ExampleGameScreen(viewModel: ExampleGameViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val uiState = viewModel.uiState
 
-    Scaffold(
-        topBar = { LogicGamesTopBar(title = stringResource(id = FastMathObject.nameRes), ExampleGameObject.mainColor) },
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(FastMathObject.backgroundColor),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(text = "Write new score", fontSize = 24.sp)
-            Spacer(modifier = Modifier.height(16.dp))
-            TextField(
-                value = uiState.score.toString(),
-                onValueChange = { newValue: String ->
-                    val newScore = newValue.toIntOrNull()
-                    if (newScore != null) {
-                        viewModel.setScore(newScore)
-                    }
-                },
-                label = { Text("Score") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = { viewModel.onSubmit() },
+    if (uiState.isInfoShowed) {
+        ExampleGameInfoScreen(viewModel)
+    } else {
+
+        Scaffold(
+            topBar = {
+                LogicGamesTopBar(
+                    title = stringResource(id = FastMathObject.nameRes),
+                    ExampleGameObject.mainColor
+                )
+            },
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .background(ExampleGameObject.backgroundColor),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Text("Submit")
+                Text(text = "Write new score", fontSize = 24.sp)
+                Spacer(modifier = Modifier.height(16.dp))
+                TextField(
+                    value = uiState.score.toString(),
+                    onValueChange = { newValue: String ->
+                        val newScore = newValue.toIntOrNull()
+                        if (newScore != null) {
+                            viewModel.setScore(newScore)
+                        }
+                    },
+                    label = { Text("Score") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = { viewModel.onSubmit() },
+                ) {
+                    Text("Submit")
+                }
             }
         }
     }

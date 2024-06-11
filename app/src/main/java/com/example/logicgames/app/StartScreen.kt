@@ -14,6 +14,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.logicgames.R
 
+/**
+ * Composable function for displaying the start screen.
+ * @param navController The NavController used for navigation.
+ */
 @Composable
 fun StartScreen(navController: NavController) {
     Image(painter = painterResource(id = R.drawable.background_start),

@@ -34,7 +34,7 @@
         wrong position. Use the feedback to refine your strategy and crack the code. A vertical
         screen position is recommended.</string>
     <string name="examplegame_info">This is just an Example game. The task of the game is to test
-        the correctness of inserting trials into the database.</string>
+        the correctness of inserting game attempts into the database.</string>
     <string name="fastmath_info">Fast Math is an engaging educational app that challenges you to
         solve math problems quickly. Choose from easy, medium, or hard levels and race against the
         clock to answer correctly. Earn points for each correct answer and aim to beat your high

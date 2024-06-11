@@ -1,4 +1,4 @@
-package com.example.logicgames.game.fast_math
+package com.example.logicgames.game.example_game
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,28 +20,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.logicgames.R
 import com.example.logicgames.app.AppViewModelProvider
 import com.example.logicgames.app.LogicGamesTopBar
-import com.example.logicgames.game.LevelSelection
-import com.example.logicgames.menu.FastMathObject
+import com.example.logicgames.menu.ExampleGameObject
 
 /**
- * Composable function for displaying the information screen of the Fast Math game.
- * @param viewModel The ViewModel for managing the Fast Math game.
- *
+ * Composable function for displaying the information screen of the example game.
+ * @param viewModel The ViewModel for managing the example game.
  */
 @Composable
-fun FastMathInfoScreen(
-    viewModel: FastMathViewModel = viewModel(factory = AppViewModelProvider.Factory)
+fun ExampleGameInfoScreen(
+    viewModel: ExampleGameViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val uiState = viewModel.uiState
 
     Scaffold(
-        topBar = { LogicGamesTopBar(title = stringResource(id = FastMathObject.nameRes), FastMathObject.mainColor) }
+        topBar = { LogicGamesTopBar(title = stringResource(id = ExampleGameObject.nameRes), ExampleGameObject.mainColor) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(FastMathObject.backgroundColor),
+                .background(ExampleGameObject.backgroundColor),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -52,21 +50,10 @@ fun FastMathInfoScreen(
                     .padding(12.dp)
             )
             Text(
-                text = stringResource(FastMathObject.infoRes),
+                text = stringResource(ExampleGameObject.infoRes),
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
                     .padding(10.dp)
-            )
-            Text(
-                stringResource(R.string.game_options),
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(12.dp))
-
-            LevelSelection(
-                levels = uiState.info.levels,
-                selectedLevel = uiState.info.selectedLevel,
-                onLevelSelected = { level -> viewModel.setLevel(level) }
             )
 
             Spacer(modifier = Modifier.height(40.dp))

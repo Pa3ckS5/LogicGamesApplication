@@ -21,12 +21,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.logicgames.navigation.NavigationComponent
 
+/**
+ * Composable function for displaying the Logic Games screen.
+ */
 @Composable
 fun LogicGamesScreen() {
     val navController = rememberNavController()
     NavigationComponent(navController = navController)
 }
 
+/**
+ * Composable function for displaying the top bar of the Logic Games screen.
+ * @param title The title to be displayed on the top bar.
+ * @param backgroundColor The background color of the top bar.
+ * @param modifier Modifier for the top bar.
+ */
 @Composable
 fun LogicGamesTopBar(
     title: String,
@@ -38,14 +47,12 @@ fun LogicGamesTopBar(
             .fillMaxWidth()
             .background(color = backgroundColor)
             .padding(14.dp)
-
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center),
             horizontalArrangement = Arrangement.SpaceAround
-
         ) {
             Text(
                 text = title,

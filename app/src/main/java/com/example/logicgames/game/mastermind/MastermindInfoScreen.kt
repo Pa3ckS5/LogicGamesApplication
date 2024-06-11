@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,6 +23,10 @@ import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.game.SwitchSelection
 import com.example.logicgames.menu.MastermindObject
 
+/**
+ * Composable function for displaying the information screen of the Mastermind game.
+ * @param viewModel The ViewModel for managing the Mastermind game.
+ */
 @Composable
 fun MastermindInfoScreen(
     viewModel: MastermindViewModel = viewModel(factory = AppViewModelProvider.Factory)

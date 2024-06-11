@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -39,12 +37,18 @@ import com.example.logicgames.R
 import com.example.logicgames.app.LogicGamesTopBar
 import com.example.logicgames.navigation.ScorelistObject
 
+/**
+ * Composable function for displaying the score list screen.
+ *
+ * @param modifier The modifier to be applied to the composable.
+ * @param viewModel The view model for managing the score list data.
+ */
 @Composable
 fun ScorelistScreen(
     modifier: Modifier = Modifier,
     viewModel: ScorelistViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val homeUiState by viewModel.homeUiState.collectAsState()
+    val homeUiState by viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = { LogicGamesTopBar(title = stringResource(id = ScorelistObject.nameRes), ScorelistObject.mainColor) },
@@ -64,19 +68,19 @@ fun ScorelistScreen(
                 )
             }
         } else {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(ScorelistObject.backgroundColor)
-        ) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .background(ScorelistObject.backgroundColor)
+            ) {
                 item {
                     OverallAttemptsText(numberOfAttempts = homeUiState.itemList.size)
                 }
 
                 var i: Int = 0
                 items(items = homeUiState.itemList, key = { it.id }) { item ->
-                    val color = if(i % 2 == 0) Color(0x8066009A) else Color(0x80360077) //colors switch
+                    val color = if (i % 2 == 0) Color(0x8066009A) else Color(0x80360077) //colors switch
                     AttemptView(attempt = item, modifier = Modifier.padding(8.dp), color)
                     i++
                 }
@@ -85,6 +89,11 @@ fun ScorelistScreen(
     }
 }
 
+/**
+ * Composable function for displaying the overall attempts text.
+ *
+ * @param numberOfAttempts The number of attempts to be displayed.
+ */
 @Composable
 fun OverallAttemptsText(numberOfAttempts: Int) {
     Text(
@@ -94,20 +103,26 @@ fun OverallAttemptsText(numberOfAttempts: Int) {
     )
 }
 
+/**
+ * Composable function for displaying an individual attempt.
+ *
+ * @param attempt The attempt data to be displayed.
+ * @param modifier The modifier to be applied to the composable.
+ * @param color The background color of the attempt view.
+ */
 @Composable
 private fun AttemptView(
-    attempt: Attempt, modifier: Modifier = Modifier, color: Color
+    attempt: Attempt,
+    modifier: Modifier = Modifier,
+    color: Color
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .background(color = color, shape = RoundedCornerShape(8.dp))
-
-
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Column(
                 modifier = Modifier
@@ -131,6 +146,12 @@ private fun AttemptView(
     }
 }
 
+/**
+ * Composable function for displaying an individual attempt attribute.
+ *
+ * @param name The name of the attribute.
+ * @param value The value of the attribute.
+ */
 @Composable
 private fun AttemptAtributeView(
     name: String,
